@@ -244,18 +244,19 @@ if __name__ == '__main__':
     for uid in uidMiss:
         index = data_test.index[data_test['user_id'] == uid].tolist()
         uid_index.extend(index)
-    data_train = pd.concat([data_train, data_test.loc[uid_index]])
+    # data_train = pd.concat([data_train, data_test.loc[uid_index]])
 
     iid_index = []
     for iid in iidMiss:
         index = data_test.index[data_test['item_id'] == iid].tolist()
         iid_index.extend(index)
-    data_train = pd.concat([data_train, data_test.loc[iid_index]])
+    # data_train = pd.concat([data_train, data_test.loc[iid_index]])
 
     all_index = list(set().union(uid_index, iid_index))
+    data_train = pd.concat([data_train, data_test.loc[all_index]])
     data_test = data_test.drop(all_index)
 
-    # split validate set aand test set
+    # split validate set and test set
     data_test, data_val = train_test_split(data_test, test_size=0.5, random_state=1234)
     uidList_train, iidList_train = get_count(data_train, 'user_id'), get_count(data_train, 'item_id')
     userNum = len(uidList_train)

@@ -107,7 +107,7 @@ def train(**kwargs):
                         model.save(name=opt.dataset, opt=opt.print_opt)
                         min_loss = val_loss
                         print("\tmodel save")
-                    if val_loss > min_loss:
+                    if best_res > min_loss:
                         best_res = min_loss
 
         scheduler.step()

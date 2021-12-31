@@ -64,7 +64,7 @@ class Net(nn.Module):
         # --------cnn for review--------------------
         fea = F.relu(self.cnn(reviews.unsqueeze(1))).squeeze(3)  # .permute(0, 2, 1)
         fea = F.max_pool1d(fea, fea.size(2)).squeeze(2)
-        fea = fea.view(-1, r_num, fea.size(1))
+        fea = fea.view(-1, r_num, fea.size(1))          # (bs, r_num, opt.filters_num)
 
         # ------------------linear attention-------------------------------
         rs_mix = F.relu(self.review_linear(fea) + self.id_linear(F.relu(u_i_id_emb)))
